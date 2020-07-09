@@ -1,8 +1,20 @@
 package abstractteszt;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import javax.xml.soap.Node;
+
 public class CodeWars {
        
+    public static void main(String[] args) {
+        System.out.println("oddOrEven: " + oddOrEven(new int[] {2, 5, 34, 6}));
+         
+    }  
     
+    public static String oddOrEven (int[] array)    {
+        IntStream list = Arrays.stream(array);       
+        return (list.sum() % 2 == 0)? "even" : "odd";
+  }
     
     public static int decToBin(int num) {
         StringBuilder sb = new StringBuilder();
@@ -18,8 +30,6 @@ public class CodeWars {
         }
         return count;
     }
-    
-
     
     public static boolean  isIsogram(String str) {
         boolean result = true;
