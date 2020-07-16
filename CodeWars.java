@@ -1,8 +1,9 @@
-package abstractteszt;
+package onlineexces;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class CodeWars {
        
@@ -11,14 +12,83 @@ public class CodeWars {
         System.out.println("scramble: " + scramble("rkqodlw","world"));
         System.out.println("longestConsec: " + longestConsec(new String[] {"zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"}, 2));       
         System.out.println("toCamelCase: " + toCamelCase("the-stealth-warrior"));
+        System.out.println("pigIt: " + pigIt2("Hello world !"));
+        System.out.println("validate: " + validate("1230"));
         
-        String szoveg = "Sajt";
-        szoveg.chars().sorted().mapToObj(x->String.valueOf((char)x)).forEach(System.out::print);
     }  
+        public static String firstEnd(String str){
+        String mid = str.substring(1, str.length()-1);
+        return str.charAt(str.length()-1) + mid + str.charAt(0);
+    }
+    
+    public static String delAt(String str, int n){
+        return str.replace(String.valueOf(str.charAt(n)), "");
+    }
+    
+    public static int getCount(String str) {
+    int vowelsCount = 0;   
+    if(str.contains("[aeiou]")) {
+        vowelsCount++;
+    }
+
+    return vowelsCount;
+  }
     
 
-
+    public static String giveBack(String str){
+        return str.charAt(0) + str + str.charAt(str.length()-1);
+    }
     
+    public boolean startHi(String str) {
+      String[] words = str.split(" ");
+        return "hi".equals(words[0].toLowerCase());
+    }
+
+     
+   public static boolean validate(String n){
+       String[] nums = n.split("");
+       int sum = 0;
+       int count = 1;
+       for(int i = nums.length-1; i >= 0; i--){
+           if(count % 2 == 0){
+               nums[i] = "" + (Integer.parseInt(nums[i]) * 2); 
+           }
+           if(Integer.parseInt(nums[i]) > 9){
+               nums[i] = "" + (Integer.parseInt(nums[i]) - 9);
+           }
+           sum += Integer.parseInt(nums[i]);
+           count++;
+       }
+       return (sum % 10 == 0);
+  }   
+    
+    
+    //for megoldás
+    public static String pigIt(String str) {
+        String[] words = str.split("\\s+");
+        String result = "";
+        for(int i = 0; i < words.length;i++){
+            if(words[i].length() > 1){
+                result += words[i].substring(1, words[i].length()) + words[i].charAt(0) + "ay";
+                if(i < words.length-1) result += " ";
+            }
+            else {
+                result += words[i];
+                if(i < words.length-1) result += " ";
+            }
+        }
+                
+        return result;
+    }
+    //Streames megoldás
+    public static String pigIt2(String str) {
+        String[] words = str.split("\\s+");
+        List<String> newWords = new ArrayList<>();
+        newWords = Arrays.asList(words);                
+        return newWords.stream()
+                .map(y -> y.matches("[a-zA-Z]+")? y.substring(1, y.length()) + y.charAt(0) + "ay": y)
+                .collect(Collectors.joining(" "));
+    }   
     
     public static String toCamelCase(String s){
         if(s.length() == 0) return "";
